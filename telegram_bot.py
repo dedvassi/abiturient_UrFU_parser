@@ -1,3 +1,4 @@
+import os
 import logging
 import asyncio
 from telegram import Update
@@ -11,8 +12,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# import os
+
 # Токен бота
-BOT_TOKEN = "7817389200:AAHUWxCcW2aWIHYxaGLy1mKdi6tiq9NxRPU"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # Создаем экземпляр парсера
 parser = UrfuParser()
