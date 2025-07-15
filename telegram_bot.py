@@ -177,5 +177,6 @@ async def main():
     await application.updater.start_polling()
 
 if __name__ == '__main__':
-    main()
+
+    asyncio.run(main())
 
