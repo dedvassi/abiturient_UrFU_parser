@@ -157,28 +157,24 @@ async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     """Обработчик ошибок"""
     logger.error(f"Update {update} caused error {context.error}")
 
-def main():
-    """Основная функция запуска бота"""
+async def main():
     print("🤖 Запуск Telegram-бота УрФУ...")
     print(f"🔑 Токен: {BOT_TOKEN[:10]}...")
-    
-    # Создаем приложение
+
     application = Application.builder().token(BOT_TOKEN).build()
-    
-    # Добавляем обработчики
+
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    
-    # Добавляем обработчик ошибок
     application.add_error_handler(error_handler)
-    
+
     print("✅ Бот настроен и готов к работе!")
     print("📱 Отправьте /start в Telegram для начала работы")
-    print("🛑 Нажмите Ctrl+C для остановки")
-    
-    # Запускаем бота
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+
+    # ✅ Асинхронный запуск
+    await application.initialize()
+    await application.start()
+    await application.updater.start_polling()
 
 if __name__ == '__main__':
     main()

@@ -1,4 +1,5 @@
 from flask import Flask
+import asyncio
 import os
 import threading
 from telegram_bot import main as start_bot
@@ -10,7 +11,7 @@ def index():
     return "🤖 Telegram-бот УрФУ работает!"
 
 def run_bot():
-    start_bot()
+    asyncio.run(start_bot())
 
 if __name__ == '__main__':
     threading.Thread(target=run_bot).start()
